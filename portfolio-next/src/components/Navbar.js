@@ -58,7 +58,6 @@ export default function Navbar() {
         <a href="/" className={styles.logo}>
           <span className={styles.logoGlow}>◆</span>
           <span>Jimmy De Jesus</span>
-          <span className={styles.logoVersion}>// V2.6</span>
         </a>
 
         <ul className={styles.navLinks}>
@@ -75,7 +74,7 @@ export default function Navbar() {
               href="#interactive-lab" 
               className={`${styles.navLink} ${activeLink === 'interactive-lab' ? styles.active : ''}`}
             >
-              Neural Lab <span className={styles.navBadge}>LIVE</span>
+              Interactive Demo <span className={styles.navBadge}>LIVE</span>
             </a>
           </li>
           <li>
@@ -91,7 +90,7 @@ export default function Navbar() {
               href="#skills" 
               className={`${styles.navLink} ${activeLink === 'skills' ? styles.active : ''}`}
             >
-              Matrix
+              Skills
             </a>
           </li>
           <li>
@@ -99,7 +98,7 @@ export default function Navbar() {
               href="#contact" 
               className={`${styles.navLink} ${activeLink === 'contact' ? styles.active : ''}`}
             >
-              Uplink
+              Contact
             </a>
           </li>
           <li>

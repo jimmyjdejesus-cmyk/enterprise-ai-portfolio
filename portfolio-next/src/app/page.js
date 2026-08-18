@@ -1,5 +1,4 @@
 import BackgroundCanvas from '../components/BackgroundCanvas';
-import TelemetryHUD from '../components/TelemetryHUD';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import InteractiveLab from '../components/InteractiveLab';
@@ -12,7 +11,6 @@ import styles from './page.module.css';
 export default function Home() {
   return (
     <>
-      <div className="cyber-scanlines" />
       <BackgroundCanvas />
       <Navbar />
 
@@ -61,14 +59,12 @@ export default function Home() {
               </a>
             </div>
 
-            <p className="mono" style={{ fontSize: '0.78rem' }}>
-              &copy; {new Date().getFullYear()} Jimmy De Jesus // NEXT.JS 16 // DEPLOYED WITH NEURAL PRECISION
+            <p className="mono" style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)' }}>
+              &copy; {new Date().getFullYear()} Jimmy De Jesus // NEXT.JS 16
             </p>
           </div>
         </div>
       </footer>
-
-      <TelemetryHUD />
     </>
   );
 }

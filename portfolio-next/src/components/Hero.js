@@ -12,10 +12,10 @@ export default function Hero() {
     <header className={styles.hero}>
       <div className="container">
         <div className={styles.heroLayout}>
-          {/* Futuristic Cyber Badge */}
+          {/* Professional Tag Badge */}
           <div className={styles.tagline}>
             <span className={styles.taglineDot}></span>
-            <span className={styles.taglineText}>JIMMY DE JESUS // AI_ENGINEER &amp; DATA_SCIENTIST</span>
+            <span className={styles.taglineText}>JIMMY DE JESUS • AI ENGINEER &amp; DATA SCIENTIST</span>
           </div>
 
           <h1 className={styles.heroTitle}>
@@ -28,7 +28,7 @@ export default function Hero() {
 
           <div className={styles.heroActions}>
             <a href="#interactive-lab" className="btn btn-primary">
-              <span>Launch Neural Lab</span>
+              <span>View Interactive Demo</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
               </svg>
@@ -43,7 +43,6 @@ export default function Hero() {
             {stats.map((stat, i) => (
               <div key={i} className={styles.kpiCard}>
                 <div className={styles.kpiHeader}>
-                  <span className={styles.kpiCross}>+</span>
                   <span className={styles.kpiLabel}>{stat.label}</span>
                 </div>
                 <div className={styles.kpiVal}>{stat.val}</div>
