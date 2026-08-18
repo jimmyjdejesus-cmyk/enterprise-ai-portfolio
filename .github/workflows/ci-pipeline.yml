@@ -1,0 +1,40 @@
+name: Automated Testing Pipeline
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+        # Installing requirements across all three analytical engines
+        pip install -r project-1-sales-dashboard/requirements.txt
+        pip install -r project-2-customer-segmentation/requirements.txt
+        pip install -r project-3-rag-qa-chatbot/requirements.txt
+
+    - name: Execute Pytest Suites
+      run: |
+        echo "Running Project 1 Tests..."
+        pytest project-1-sales-dashboard/tests/ -v
+        echo "Running Project 2 Tests..."
+        pytest project-2-customer-segmentation/tests/ -v
+        echo "Running Project 3 Tests..."
+        pytest project-3-rag-qa-chatbot/tests/ -v

@@ -1,11 +1,32 @@
 # Enterprise AI, Data Science & Business Intelligence Portfolio
 
+[![Live Application Demo](https://img.shields.io/badge/Live_Demo-Access_App-brightgreen?style=for-the-badge)](https://portfolio-next-psi-cyan-93.vercel.app/)
+[![Build & Test](https://github.com/jimmyjdejesus-cmyk/enterprise-ai-portfolio/actions/workflows/ci-pipeline.yml/badge.svg)](https://github.com/jimmyjdejesus-cmyk/enterprise-ai-portfolio/actions)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16%20App%20Router-black.svg)](https://nextjs.org/)
 [![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED.svg)](https://www.docker.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A production-grade, hiring-ready portfolio showcasing end-to-end applications across **Artificial Intelligence Engineering**, **Applied Data Science & NLP**, and **Quantitative Business Analytics**.
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    A[Next.js 16 Web Interface] --> B(Project 1: Sales Engine)
+    A --> C(Project 2: NLP Segmentation)
+    A --> D(Project 3: RAG QA Bot)
+
+    B --> E{Docker Environment}
+    C --> F{Docker Environment}
+    D --> G{Docker Environment}
+
+    E --> H[(SARIMAX / Plotly)]
+    F --> I[(Scikit-Learn / NLTK)]
+    G --> J[(Gemini API / FAISS)]
+```
 
 ---
 
