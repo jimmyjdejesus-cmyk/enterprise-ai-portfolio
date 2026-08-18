@@ -1,0 +1,45 @@
+.main {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 3.5rem; /* space for telemetry HUD */
+}
+
+.footer {
+  padding: 4rem 0 5rem 0;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+  transition: all var(--transition-normal);
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footerBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.glowDot {
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent);
+}
+
+@media (max-width: 768px) {
+  .footerContent {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,7 @@
+tests/
+README.md
+.git/
+__pycache__/
+venv/
+*.md
+.gitignore

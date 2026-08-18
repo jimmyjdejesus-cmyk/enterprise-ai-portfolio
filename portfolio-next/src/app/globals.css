@@ -1,0 +1,327 @@
+/* ==========================================================================
+   FUTURISTIC DESIGN TOKENS & CYBERNETIC TOKENS
+   ========================================================================== */
+:root {
+  /* Typography */
+  --font-heading: var(--font-heading), 'Space Grotesk', sans-serif;
+  --font-mono: var(--font-mono), 'JetBrains Mono', monospace;
+  --font-body: var(--font-body), 'Plus Jakarta Sans', sans-serif;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Light Theme (Clean Cyber Slate) */
+  --bg-primary: #f4f6f9;
+  --bg-secondary: #e9eef5;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-navbar: rgba(244, 246, 249, 0.82);
+  --text-primary: #0b111e;
+  --text-secondary: #4b586e;
+  --text-tertiary: #8b99b0;
+  
+  --accent: #059669; /* Emerald */
+  --accent-cyan: #0284c7; /* Cyan */
+  --accent-soft: rgba(5, 150, 105, 0.12);
+  --accent-glow: rgba(5, 150, 105, 0.25);
+  
+  --border: rgba(11, 17, 30, 0.08);
+  --border-bright: rgba(5, 150, 105, 0.4);
+  --card-glass: rgba(255, 255, 255, 0.75);
+  
+  --shadow-sm: 0 2px 10px rgba(11, 17, 30, 0.04);
+  --shadow-md: 0 10px 30px rgba(11, 17, 30, 0.08);
+  --shadow-glow: 0 0 25px rgba(5, 150, 105, 0.15);
+
+  --scrollbar-track: #e9eef5;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-thumb-hover: #94a3b8;
+}
+
+/* Dark Theme (Deep Cyber Space & Neural Void) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-theme) {
+    --bg-primary: #05080f;
+    --bg-secondary: #0a0f1d;
+    --bg-card: rgba(10, 16, 30, 0.65);
+    --bg-navbar: rgba(5, 8, 15, 0.78);
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-tertiary: #475569;
+    
+    --accent: #00f5a0; /* Luminous Cyber Emerald */
+    --accent-cyan: #00d2ff; /* Laser Cyan */
+    --accent-soft: rgba(0, 245, 160, 0.1);
+    --accent-glow: rgba(0, 245, 160, 0.28);
+    
+    --border: rgba(255, 255, 255, 0.08);
+    --border-bright: rgba(0, 245, 160, 0.5);
+    --card-glass: rgba(10, 16, 30, 0.6);
+    
+    --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.6);
+    --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.8);
+    --shadow-glow: 0 0 35px rgba(0, 245, 160, 0.22);
+
+    --scrollbar-track: #05080f;
+    --scrollbar-thumb: #1e293b;
+    --scrollbar-thumb-hover: #334155;
+  }
+}
+
+.light-theme {
+  --bg-primary: #f4f6f9;
+  --bg-secondary: #e9eef5;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-navbar: rgba(244, 246, 249, 0.82);
+  --text-primary: #0b111e;
+  --text-secondary: #4b586e;
+  --text-tertiary: #8b99b0;
+  --accent: #059669;
+  --accent-cyan: #0284c7;
+  --accent-soft: rgba(5, 150, 105, 0.12);
+  --accent-glow: rgba(5, 150, 105, 0.25);
+  --border: rgba(11, 17, 30, 0.08);
+  --border-bright: rgba(5, 150, 105, 0.4);
+  --card-glass: rgba(255, 255, 255, 0.75);
+  --shadow-sm: 0 2px 10px rgba(11, 17, 30, 0.04);
+  --shadow-md: 0 10px 30px rgba(11, 17, 30, 0.08);
+  --shadow-glow: 0 0 25px rgba(5, 150, 105, 0.15);
+  --scrollbar-track: #e9eef5;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-thumb-hover: #94a3b8;
+}
+
+.dark-theme {
+  --bg-primary: #05080f;
+  --bg-secondary: #0a0f1d;
+  --bg-card: rgba(10, 16, 30, 0.65);
+  --bg-navbar: rgba(5, 8, 15, 0.78);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #475569;
+  --accent: #00f5a0;
+  --accent-cyan: #00d2ff;
+  --accent-soft: rgba(0, 245, 160, 0.1);
+  --accent-glow: rgba(0, 245, 160, 0.28);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-bright: rgba(0, 245, 160, 0.5);
+  --card-glass: rgba(10, 16, 30, 0.6);
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 35px rgba(0, 245, 160, 0.22);
+  --scrollbar-track: #05080f;
+  --scrollbar-thumb: #1e293b;
+  --scrollbar-thumb-hover: #334155;
+}
+
+/* ==========================================================================
+   GLOBAL RESET
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.65;
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Typography Details */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+/* ==========================================================================
+   FUTURISTIC UTILITIES & CORNER HUD ACCENTS
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.section {
+  padding: 8.5rem 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.section-header {
+  margin-bottom: 4rem;
+  max-width: 700px;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.3rem 0.8rem;
+  background: var(--accent-soft);
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.section-tag::before {
+  content: '//';
+  opacity: 0.6;
+}
+
+.section-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* Cybernetic Glowing Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.85rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-cyan) 100%);
+  color: #05080f;
+  font-weight: 700;
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px var(--accent-glow);
+  filter: brightness(1.1);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+/* HUD Corner Brackets for High-Tech Panels */
+.hud-panel {
+  position: relative;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.hud-panel::before,
+.hud-panel::after {
+  content: '+';
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+.hud-panel::before { top: 6px; left: 8px; }
+.hud-panel::after { bottom: 6px; right: 8px; }
+
+/* Cybernetic Scanline Effect */
+.cyber-scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.15) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 99;
+  opacity: 0.15;
+}
+
+/* Glowing text utility */
+.glow-text {
+  text-shadow: 0 0 20px var(--accent-glow);
+}
