@@ -3,42 +3,63 @@ import styles from './Skills.module.css';
 export default function Skills() {
   const skillCategories = [
     {
-      title: "AI & Neural Architectures",
+      title: "AI & LLM Architectures",
       id: "ai",
       code: "MODULE_01",
       skills: [
-        { name: "Large Language Models (LLMs)", level: "98%" },
-        { name: "Retrieval-Augmented Generation (RAG)", level: "96%" },
-        { name: "LangChain / LlamaIndex", level: "94%" },
-        { name: "Vector Databases (FAISS / Chroma)", level: "95%" },
-        { name: "Gemini / OpenAI API", level: "99%" },
-        { name: "Prompt Engineering & Evaluation", level: "97%" }
+        "Retrieval-Augmented Generation (RAG)",
+        "Dense Vector Embeddings",
+        "Hybrid Search (Dense + Sparse)",
+        "Reciprocal Rank Fusion (RRF)",
+        "Grounding & Hallucination Guardrails",
+        "Contextual Query Rewriting",
+        "Google Gemini API",
+        "Prompt Engineering & Evaluation"
       ]
     },
     {
-      title: "Data Science & Machine Learning",
+      title: "Machine Learning & Statistics",
       id: "ds",
       code: "MODULE_02",
       skills: [
-        { name: "Python / Pandas / NumPy", level: "99%" },
-        { name: "Scikit-Learn Algorithms", level: "95%" },
-        { name: "K-Means & Unsupervised Clustering", level: "94%" },
-        { name: "PCA Dimensionality Reduction", level: "92%" },
-        { name: "NLTK VADER / Sentiment NLP", level: "93%" },
-        { name: "Hypothesis Testing & Statistics", level: "91%" }
+        "Unsupervised K-Means Clustering",
+        "PCA Dimensionality Reduction",
+        "Cluster Validation (Silhouette, Davies-Bouldin)",
+        "Fisher-Pearson Skewness Preprocessing",
+        "NLTK VADER Sentiment Analysis",
+        "TF-IDF N-Gram Keyphrase Extraction",
+        "Hypothesis Testing & Feature Scaling",
+        "Scikit-Learn / NumPy / Pandas"
       ]
     },
     {
-      title: "Business Intelligence & Forecasting",
+      title: "Time-Series & Business Analytics",
       id: "ba",
       code: "MODULE_03",
       skills: [
-        { name: "Streamlit Web Applications", level: "98%" },
-        { name: "Plotly Interactive Visualizations", level: "96%" },
-        { name: "SARIMAX / ARIMA Time-Series", level: "93%" },
-        { name: "Customer Cohort Retention Matrices", level: "95%" },
-        { name: "RFM Value Segmentation", level: "97%" },
-        { name: "SQL Data Modeling & KPIs", level: "94%" }
+        "SARIMAX Econometric Modeling",
+        "Automated AIC Parameter Optimization",
+        "Ljung-Box Residual Autocorrelation Tests",
+        "Customer Lifetime Value (LTV) Modeling",
+        "Monthly Cohort Retention Matrices",
+        "RFM Behavioral Quantile Segmentation",
+        "Streamlit Application Development",
+        "Plotly Interactive Data Visualizations"
+      ]
+    },
+    {
+      title: "Engineering, Tooling & DevOps",
+      id: "ops",
+      code: "MODULE_04",
+      skills: [
+        "Python (OOP / Clean Architecture)",
+        "Docker Containerization",
+        "Next.js 16 / React / Modern Web",
+        "Pytest Automated Test Suites",
+        "uv Package & Environment Manager",
+        "Git / GitHub Workflow & Actions",
+        "Vercel Cloud CI/CD Deployment",
+        "REST APIs & JSON Schemas"
       ]
     }
   ];
@@ -47,29 +68,24 @@ export default function Skills() {
     <section className="section" id="skills">
       <div className="container">
         <div className="section-header">
-          <div className="section-tag">Neural Capability Matrix</div>
-          <h2 className="section-title">Technical Expertise &amp; Tooling</h2>
+          <div className="section-tag">Technical Capability Matrix</div>
+          <h2 className="section-title">Core Competencies &amp; Tooling</h2>
         </div>
 
         <div className={styles.skillsContainer}>
           {skillCategories.map(cat => (
             <div key={cat.id} className={styles.skillCategory}>
               <div className={styles.categoryHeader}>
-                <span className={styles.moduleCode}>{cat.code}</span>
+                <span className={styles.moduleCode}>{cat.code} //</span>
                 <h3 className={styles.categoryTitle}>{cat.title}</h3>
               </div>
 
-              <div className={styles.skillList}>
+              <div className={styles.tagGrid}>
                 {cat.skills.map((skill, idx) => (
-                  <div key={idx} className={styles.skillItem}>
-                    <div className={styles.skillMeta}>
-                      <span className={styles.skillName}>{skill.name}</span>
-                      <span className={styles.skillLevel}>{skill.level}</span>
-                    </div>
-                    <div className={styles.levelTrack}>
-                      <div className={styles.levelFill} style={{ width: skill.level }}></div>
-                    </div>
-                  </div>
+                  <span key={idx} className={styles.skillPill}>
+                    <span className={styles.pillDot}></span>
+                    <span>{skill}</span>
+                  </span>
                 ))}
               </div>
             </div>
@@ -79,3 +95,4 @@ export default function Skills() {
     </section>
   );
 }
+

@@ -2,30 +2,30 @@
   {
     "id": "rag-chatbot",
     "category": "ai",
-    "categoryLabel": "AI Engineering",
+    "categoryLabel": "AI & NLP Engineering",
     "title": "Document RAG QA Assistant",
-    "description": "An intelligent retrieval-augmented generation engine that allows users to upload PDF/text documents and query them in natural language. Utilizes vector embeddings and Google Gemini API.",
-    "tech": ["Python", "LangChain", "Gemini API", "FAISS", "Streamlit"],
+    "description": "Enterprise Hybrid RAG engine combining Dense Gemini embeddings with Sparse TF-IDF lexical search via Reciprocal Rank Fusion (RRF). Features conversational memory rewriting, automated grounding faithfulness guardrails, and full Dockerized deployment.",
+    "tech": ["Python", "Google Gemini API", "Hybrid RRF", "TF-IDF", "Streamlit", "Docker"],
     "link": "https://github.com/jimmyjdejesus-cmyk/project-3-rag-qa-chatbot",
     "svgPath": "M3 11h18v10H3zm9-6a2 2 0 100-4 2 2 0 000 4zm0 2v4m-4 5h.01M16 16h.01"
   },
   {
     "id": "customer-segmentation",
     "category": "ds",
-    "categoryLabel": "Data Science",
+    "categoryLabel": "Machine Learning & NLP",
     "title": "Customer Segmentation & Sentiment Analysis",
-    "description": "Uses RFM analytics and unsupervised K-Means clustering to discover customer groups. Integrates transformer-based sentiment analysis on customer reviews to find cohort satisfaction patterns.",
-    "tech": ["Python", "Jupyter", "Scikit-Learn", "NLTK / Transformers", "Pandas"],
+    "description": "End-to-end customer intelligence pipeline utilizing Fisher-Pearson skewness correction, multi-metric K-Means evaluation (Silhouette, Davies-Bouldin), 2D PCA projections, and NLTK VADER / TF-IDF N-gram sentiment mining to isolate churn-risk personas.",
+    "tech": ["Python", "Scikit-Learn", "NLTK VADER", "TF-IDF N-Grams", "PCA", "Seaborn"],
     "link": "https://github.com/jimmyjdejesus-cmyk/project-2-customer-segmentation",
     "svgPath": "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2m16-14a4 4 0 11-8 0 4 4 0 018 0zm7 14v-2a4 4 0 00-3-3.87m0-7.75a4 4 0 010 7.75"
   },
   {
     "id": "sales-dashboard",
     "category": "ba",
-    "categoryLabel": "Business Intelligence",
+    "categoryLabel": "Time-Series & Analytics",
     "title": "Sales Analytics & Forecasting Dashboard",
-    "description": "An interactive e-commerce and retail sales tracking dashboard featuring ARIMA-based predictive forecasting, cohort retention tracking, and interactive key performance indicator metrics.",
-    "tech": ["Python", "Streamlit", "Plotly", "Statsmodels", "Pandas"],
+    "description": "Executive sales intelligence platform featuring automated SARIMAX (p,d,q)x(P,D,Q)s AIC grid-search optimization, Ljung-Box residual diagnostics, cohort survival matrices, and predictive Customer Lifetime Value (LTV) modeling.",
+    "tech": ["Python", "Statsmodels (SARIMAX)", "Streamlit", "Plotly", "Cohort Retention", "LTV Modeling"],
     "link": "https://github.com/jimmyjdejesus-cmyk/project-1-sales-dashboard",
     "svgPath": "M18 20V10M12 20V4M6 20v-6"
   }

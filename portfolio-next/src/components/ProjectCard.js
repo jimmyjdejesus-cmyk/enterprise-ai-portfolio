@@ -48,7 +48,12 @@ export default function ProjectCard({ id, title, description, tech, categoryLabe
         </div>
 
         <div className={styles.cardFooter}>
-          <a href={link} className={styles.projectLink}>
+          <a 
+            href={link} 
+            className={styles.projectLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span>ACCESS REPOSITORY</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>

@@ -49,41 +49,38 @@
   gap: 1.15rem;
 }
 
-.skillItem {
+.tagGrid {
   display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+  flex-wrap: wrap;
+  gap: 0.6rem;
 }
 
-.skillMeta {
-  display: flex;
-  justify-content: space-between;
+.skillPill {
+  display: inline-flex;
   align-items: center;
-}
-
-.skillName {
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.skillLevel {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--accent);
-  font-weight: 700;
-}
-
-.levelTrack {
-  height: 4px;
+  gap: 0.45rem;
+  padding: 0.4rem 0.75rem;
   background: var(--bg-secondary);
-  border-radius: 4px;
-  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
 }
 
-.levelFill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-cyan) 100%);
-  border-radius: 4px;
-  box-shadow: 0 0 8px var(--accent-glow);
+.skillPill:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+  color: var(--accent);
+  transform: translateY(-1px);
 }
+
+.pillDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+

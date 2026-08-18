@@ -17,6 +17,26 @@
   color: var(--text-primary);
 }
 
+.contactMethodLink {
+  text-decoration: none;
+  display: block;
+  transition: transform var(--transition-fast);
+}
+
+.contactMethodLink:hover {
+  transform: translateX(4px);
+}
+
+.contactMethodLink:hover .contactIcon {
+  background: var(--accent);
+  color: var(--bg-primary);
+  border-color: var(--accent);
+}
+
+.contactMethodLink:hover .contactValue {
+  color: var(--accent);
+}
+
 .contactMethod {
   display: flex;
   align-items: flex-start;

@@ -2,10 +2,10 @@ import styles from './Hero.module.css';
 
 export default function Hero() {
   const stats = [
-    { label: "REVENUE_MODELED", val: "$12.4M", sub: "SARIMAX & Cohort Analytics" },
-    { label: "RAG_RETRIEVAL_ACCURACY", val: "99.4%", sub: "Vector Grounding Score" },
-    { label: "FORECAST_HORIZON", val: "30-Day", sub: "Time-Series Predictive Window" },
-    { label: "COHORTS_CLUSTERED", val: "500+", sub: "K-Means RFM Segment Space" }
+    { label: "REVENUE_MODELED", val: "$4.78M", sub: "SARIMAX & Cohort Analytics" },
+    { label: "RAG_FAITHFULNESS", val: "86.0%", sub: "Hallucination Guardrail Gate" },
+    { label: "CLUSTERING_OPTIMAL_K", val: "K=3", sub: "Silhouette & PCA Separation" },
+    { label: "TEST_SUITE_PASS_RATE", val: "100%", sub: "22/22 Automated Pytest Units" }
   ];
 
   return (
@@ -15,15 +15,15 @@ export default function Hero() {
           {/* Futuristic Cyber Badge */}
           <div className={styles.tagline}>
             <span className={styles.taglineDot}></span>
-            <span className={styles.taglineText}>SYSTEM_CORE // AI_DATA_INTELLIGENCE // V2.6</span>
+            <span className={styles.taglineText}>JIMMY DE JESUS // AI_ENGINEER &amp; DATA_SCIENTIST</span>
           </div>
 
           <h1 className={styles.heroTitle}>
-            Engineering next-gen AI &amp; <span className={styles.glowWord}>predictive intelligence</span> systems.
+            Engineering production AI, <span className={styles.glowWord}>machine learning</span> &amp; forecasting systems.
           </h1>
 
           <p className={styles.heroDescription}>
-            Bridging autonomous neural RAG pipelines, production time-series forecasting algorithms, and customer intelligence matrices into high-velocity business impact.
+            Building high-recall Hybrid RAG architectures, econometrically tuned SARIMAX time-series engines, and unsupervised customer segmentation pipelines.
           </p>
 
           <div className={styles.heroActions}>
@@ -34,7 +34,7 @@ export default function Hero() {
               </svg>
             </a>
             <a href="#projects" className="btn btn-secondary">
-              <span>Explore Projects [3]</span>
+              <span>Explore Standalone Repositories [3]</span>
             </a>
           </div>
 
@@ -56,3 +56,4 @@ export default function Hero() {
     </header>
   );
 }
+
