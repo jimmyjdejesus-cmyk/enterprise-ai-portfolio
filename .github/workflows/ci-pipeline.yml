@@ -30,11 +30,17 @@ jobs:
         pip install -r project-2-customer-segmentation/requirements.txt
         pip install -r project-3-rag-qa-chatbot/requirements.txt
 
+    - name: Download NLTK Corpora
+      run: |
+        # Pre-download required NLTK data packages used by Project 2 NLP engine
+        # (also auto-downloaded on first use, but pre-fetching avoids CI timeout risk)
+        python -c "import nltk; nltk.download('vader_lexicon'); nltk.download('stopwords'); nltk.download('punkt'); nltk.download('punkt_tab')"
+
     - name: Execute Pytest Suites
       run: |
-        echo "Running Project 1 Tests..."
+        echo "Running Project 1 Tests (Sales Analytics & SARIMAX Forecasting)..."
         pytest project-1-sales-dashboard/tests/ -v
-        echo "Running Project 2 Tests..."
+        echo "Running Project 2 Tests (Customer Segmentation & NLP)..."
         pytest project-2-customer-segmentation/tests/ -v
-        echo "Running Project 3 Tests..."
+        echo "Running Project 3 Tests (Hybrid RAG Engine)..."
         pytest project-3-rag-qa-chatbot/tests/ -v

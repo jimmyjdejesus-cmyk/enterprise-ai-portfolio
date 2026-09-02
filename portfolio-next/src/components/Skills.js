@@ -3,63 +3,63 @@ import styles from './Skills.module.css';
 export default function Skills() {
   const skillCategories = [
     {
-      title: "AI & LLM Architectures",
+      title: "AI & Automation Engineering",
       id: "ai",
       code: "MODULE_01",
       skills: [
         "Retrieval-Augmented Generation (RAG)",
-        "Dense Vector Embeddings",
-        "Hybrid Search (Dense + Sparse)",
+        "Dense Vector Embeddings & Hybrid Search",
         "Reciprocal Rank Fusion (RRF)",
+        "Workflow Automation & Integration Tools",
         "Grounding & Hallucination Guardrails",
         "Contextual Query Rewriting",
-        "Google Gemini API",
+        "Google Gemini API / LLM APIs",
         "Prompt Engineering & Evaluation"
       ]
     },
     {
-      title: "Machine Learning & Statistics",
+      title: "Data, SQL & Business Intelligence",
       id: "ds",
       code: "MODULE_02",
       skills: [
-        "Unsupervised K-Means Clustering",
-        "PCA Dimensionality Reduction",
-        "Cluster Validation (Silhouette, Davies-Bouldin)",
-        "Fisher-Pearson Skewness Preprocessing",
+        "SQL Queries, Reports & Stored Procedures",
+        "Power BI / Dashboards & Visualizations",
+        "RFM Customer Segmentation & Analytics",
+        "K-Means Clustering & PCA",
         "NLTK VADER Sentiment Analysis",
         "TF-IDF N-Gram Keyphrase Extraction",
-        "Hypothesis Testing & Feature Scaling",
+        "ETL Pipeline Design & Data Quality",
         "Scikit-Learn / NumPy / Pandas"
       ]
     },
     {
-      title: "Time-Series & Business Analytics",
+      title: "Application Development & BI Reporting",
       id: "ba",
       code: "MODULE_03",
       skills: [
-        "SARIMAX Econometric Modeling",
-        "Automated AIC Parameter Optimization",
-        "Ljung-Box Residual Autocorrelation Tests",
+        "Python Business Utilities, Scripts & APIs",
+        "Streamlit Web Application Development",
+        "SARIMAX Time-Series Forecasting",
+        "Plotly Interactive Data Visualizations",
         "Customer Lifetime Value (LTV) Modeling",
-        "Monthly Cohort Retention Matrices",
-        "RFM Behavioral Quantile Segmentation",
-        "Streamlit Application Development",
-        "Plotly Interactive Data Visualizations"
+        "Cohort Retention & Revenue Analytics",
+        "What-If Scenario Simulation Tools",
+        "Rapid Prototyping & Proof-of-Concept"
       ]
     },
     {
-      title: "Engineering, Tooling & DevOps",
+      title: "Full-Stack, Integrations & DevOps",
       id: "ops",
       code: "MODULE_04",
       skills: [
         "Python (OOP / Clean Architecture)",
+        "JavaScript / HTML / CSS",
+        "REST API Design & Third-Party Integrations",
         "Docker Containerization",
-        "Next.js 16 / React / Modern Web",
-        "Pytest Automated Test Suites",
-        "uv Package & Environment Manager",
-        "Git / GitHub Workflow & Actions",
-        "Vercel Cloud CI/CD Deployment",
-        "REST APIs & JSON Schemas"
+        "Next.js 16 / React / Modern Web Stack",
+        "Pytest Automated Test Suites (22/22 passing)",
+        "Git / GitHub Actions CI/CD",
+        "Vercel Cloud Deployment"
       ]
     }
   ];
