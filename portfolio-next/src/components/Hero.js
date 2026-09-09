@@ -34,7 +34,7 @@ export default function Hero() {
               </svg>
             </a>
             <a href="#projects" className="btn btn-secondary">
-              <span>Explore Standalone Repositories [3]</span>
+              <span>Explore Standalone Repositories [4]</span>
             </a>
           </div>
 

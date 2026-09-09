@@ -10,6 +10,16 @@
     "svgPath": "M3 11h18v10H3zm9-6a2 2 0 100-4 2 2 0 000 4zm0 2v4m-4 5h.01M16 16h.01"
   },
   {
+    "id": "dsh-openbot",
+    "category": "ai",
+    "categoryLabel": "AI Agent Systems & Security",
+    "title": "DeepSeek OpenBot Sandbox Plugin",
+    "description": "Native Cordis plugin for DeepSeek Harness (DSH) integrating CopilotKit OpenBot container sandboxing, isolated CDP browser automation, fail-closed pre-action security evaluation, and tamper-evident audit ledgers.",
+    "tech": ["TypeScript", "DeepSeek Harness", "CopilotKit", "Docker", "CDP", "Security Audit"],
+    "link": "https://github.com/jimmyjdejesus-cmyk/dsh-plugin-openbot",
+    "svgPath": "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+  },
+  {
     "id": "customer-segmentation",
     "category": "ds",
     "categoryLabel": "Machine Learning & NLP",

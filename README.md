@@ -5,7 +5,7 @@
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16%20App%20Router-black.svg)](https://nextjs.org/)
 [![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED.svg)](https://www.docker.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A production-grade, hiring-ready portfolio showcasing end-to-end applications across **Artificial Intelligence Engineering**, **Applied Data Science & NLP**, and **Quantitative Business Analytics**.
 
@@ -65,6 +65,7 @@ graph TD
 | **[Project 1: Sales Analytics & Forecasting](project-1-sales-dashboard/)** | Business Analyst / Analytics Engineer | Python, Streamlit, Plotly, SARIMAX, Statsmodels, Pandas | Automated AIC grid-search, Ljung-Box residual diagnostics, Cohort survival matrices, Customer LTV modeling, Docker container, unit test suite. |
 | **[Project 2: Customer Segmentation & NLP](project-2-customer-segmentation/)** | Data Scientist / ML Engineer | Python, Scikit-Learn, NLTK VADER, TF-IDF N-Grams, PCA | Skewness correction, Multi-metric K-Means evaluation (Silhouette, Davies-Bouldin, Calinski-Harabasz), 2D PCA, N-gram topic extraction, CLI runner, unit test suite. |
 | **[Project 3: Hybrid RAG QA Engine](project-3-rag-qa-chatbot/)** | AI / LLM Engineer | Python, Google Gemini API, Streamlit, FAISS, PyPDF | Hybrid Dense + Sparse BM25 retrieval, Reciprocal Rank Fusion (RRF), context rewriting, hallucination guardrails, Docker container, unit test suite. |
+| **[DSH OpenBot Plugin](https://github.com/jimmyjdejesus-cmyk/dsh-plugin-openbot)** | Agent Architecture & Security | TypeScript, DeepSeek Harness, CopilotKit OpenBot, Docker, CDP | Sandboxed container runtime, isolated Chromium automation, fail-closed pre-action security gateway, and audited JSONL action ledger. |
 | **[Portfolio Web App](portfolio-next/)** | Full-Stack AI Interface | Next.js 16 (App Router), React, Space Grotesk, JetBrains Mono | Interactive Neural Canvas, live parametric simulation playground, telemetry HUD diagnostics, responsive dark/light glassmorphism. |
 
 ---
