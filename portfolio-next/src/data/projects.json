@@ -4,8 +4,8 @@
     "category": "ai",
     "categoryLabel": "AI & NLP Engineering",
     "title": "Document RAG QA Assistant",
-    "description": "Enterprise Hybrid RAG engine combining Dense Gemini embeddings with Sparse TF-IDF lexical search via Reciprocal Rank Fusion (RRF). Features conversational memory rewriting, automated grounding faithfulness guardrails, and full Dockerized deployment.",
-    "tech": ["Python", "Google Gemini API", "Hybrid RRF", "TF-IDF", "Streamlit", "Docker"],
+    "description": "Enterprise Hybrid RAG engine combining Dense Gemini embeddings with Sparse TF-IDF lexical search via Reciprocal Rank Fusion (RRF). Features conversational memory rewriting, automated grounding faithfulness guardrails, a high-performance FastAPI backend, and an eye-friendly web UI.",
+    "tech": ["Python", "FastAPI", "Google Gemini API", "Hybrid RRF", "Vanilla JS", "Docker"],
     "link": "https://github.com/jimmyjdejesus-cmyk/project-3-rag-qa-chatbot",
     "svgPath": "M3 11h18v10H3zm9-6a2 2 0 100-4 2 2 0 000 4zm0 2v4m-4 5h.01M16 16h.01"
   },
@@ -34,8 +34,8 @@
     "category": "ba",
     "categoryLabel": "Time-Series & Analytics",
     "title": "Sales Analytics & Forecasting Dashboard",
-    "description": "Executive sales intelligence platform featuring automated SARIMAX (p,d,q)x(P,D,Q)s AIC grid-search optimization, Ljung-Box residual diagnostics, cohort survival matrices, and predictive Customer Lifetime Value (LTV) modeling.",
-    "tech": ["Python", "Statsmodels (SARIMAX)", "Streamlit", "Plotly", "Cohort Retention", "LTV Modeling"],
+    "description": "Executive sales intelligence platform featuring automated SARIMAX (p,d,q)x(P,D,Q)s AIC grid-search optimization, Ljung-Box residual diagnostics, cohort survival matrices, predictive Customer Lifetime Value (LTV) modeling, and a high-performance FastAPI web console.",
+    "tech": ["Python", "FastAPI", "Statsmodels (SARIMAX)", "Plotly.js", "Vanilla JS", "Docker"],
     "link": "https://github.com/jimmyjdejesus-cmyk/project-1-sales-dashboard",
     "svgPath": "M18 20V10M12 20V4M6 20v-6"
   }
