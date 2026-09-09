@@ -1,28 +1,30 @@
 # Enterprise Sales Analytics & Predictive Forecasting Engine
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.36-FF4B4B.svg)](https://streamlit.io/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.111+-009688.svg)](https://fastapi.tiangolo.com/)
 [![Statsmodels](https://img.shields.io/badge/Statsmodels-SARIMAX-green.svg)](https://www.statsmodels.org/)
+[![Plotly.js](https://img.shields.io/badge/Plotly.js-Interactive-3F4F75.svg)](https://plotly.com/javascript/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An enterprise-grade business analytics platform that transforms raw retail transactions into predictive revenue trajectories, customer cohort survival matrices, and behavioral marketing personas.
+A high-performance business analytics and forecasting platform that transforms raw retail transactions into predictive revenue trajectories, customer cohort survival matrices, and behavioral marketing personas.
 
 ---
 
 ## 🎯 The Business Problem
-Retail and e-commerce companies frequently make decision mistakes due to flat-line KPI reporting. Measuring historical sales fails to capture seasonality and market trends, while generic average customer lifetime metrics lead to overspending on customer acquisition.
+Retail and e-commerce companies frequently make strategic missteps due to flat-line KPI reporting. Measuring historical sales fails to capture seasonality and market trends, while generic customer lifetime metrics lead to overspending on customer acquisition.
 
-**This project solves this by:**
-1. Fitting automated **SARIMAX Time-Series Projections** to model trend and seasonality, establishing statistical confidence bounds for inventory and staff planning.
+**This platform solves this by:**
+1. Fitting automated **SARIMAX Time-Series Projections** to model trend and seasonality, establishing 95% statistical confidence bounds for inventory and staffing.
 2. Building an **un-duplicated Customer LTV model** that scales over customer lifespans for accurate marketing budget allocation.
-3. Modeling **Cohort Retention matrices** to locate the exact months elapsed when customer cohorts churn, allowing retention marketing intervention.
+3. Modeling **Cohort Retention matrices** to locate the exact months elapsed when customer cohorts churn, allowing proactive retention marketing.
+4. Serving an async **FastAPI REST API** paired with an eye-friendly, responsive **Vanilla JS + Plotly.js** executive console.
 
 ---
 
 ## 📈 Key Results & Metrics
-Based on a sample evaluation run over 19,800+ historical retail records:
-* **KPI Metrics Summary**:
-  * Total Ingested Revenue: **$4.78M**
+Based on an evaluation benchmark over 20,300+ historical retail records:
+* **Executive KPIs**:
+  * Total Ingested Revenue: **$4.84M**
   * Average Order Value (AOV): **$389.05**
   * Overall Profit Margin: **37.2%**
 * **Customer LTV Insights**:
@@ -30,7 +32,7 @@ Based on a sample evaluation run over 19,800+ historical retail records:
   * Annual Purchase Frequency: **10.6 orders/year**
   * Historical LTV: **$3,063.74** | Predictive LTV: **$1,933.15** (accounting for acquisition timeline drift).
 * **Optimal Forecasting Configuration**:
-  * Autoregressive model selected: **SARIMAX(1,1,0)x(0,1,1)s=4** (optimized lowest AIC). Residuals confirmed as white noise via Ljung-Box test ($p > 0.05$).
+  * Autoregressive model selected: **SARIMAX(0,1,1)x(0,1,1)s=4** (optimized lowest AIC). Residuals confirmed as white noise via Ljung-Box test ($p > 0.05$).
 
 ---
 
@@ -38,23 +40,37 @@ Based on a sample evaluation run over 19,800+ historical retail records:
 
 ```mermaid
 flowchart TD
-    A[Raw Multi-Year Transactions CSV] --> B[Data Ingestion & Schema Enforcer]
-    B --> C[Executive KPI & MoM Aggregator]
-    B --> D[Cohort Matrix & LTV Model]
-    B --> E[RFM Behavioral Quantile Engine]
-    B --> F[SARIMAX Time-Series Optimizer]
-    
-    F --> F1[Auto Grid-Search AIC Selector]
-    F1 --> F2[Out-of-Sample Backtest: RMSE / MAPE]
-    F2 --> F3[Ljung-Box Residual Autocorrelation Test]
-    
-    C --> G[Streamlit Multi-Tab Executive Console]
-    D --> G
-    E --> G
-    F3 --> G
-    
-    G --> H[Scenario What-If Sensitivity Simulator]
-    G --> I[Filtered Data CSV / JSON Exporter]
+    subgraph Frontend ["Modern Web Client (Vanilla JS + Plotly)"]
+        KPIs[Executive KPI Banner & MoM Deltas]
+        Forecast[Interactive SARIMAX Projections]
+        Cohort[Cohort Heatmap & LTV Cards]
+        RFM[RFM Persona Matrix & Playbook]
+        Sim[What-If Sensitivity Simulator]
+        Ledger[Paginated Transaction Ledger]
+    end
+
+    subgraph Backend ["FastAPI Async Server (server.py)"]
+        API_Meta["GET /api/meta"]
+        API_KPI["GET /api/kpis"]
+        API_FC["POST /api/forecast"]
+        API_LTV["GET /api/cohort-ltv"]
+        API_RFM["GET /api/rfm"]
+        API_Sim["POST /api/scenario"]
+        API_Tx["GET /api/transactions"]
+        API_Export["GET /api/export"]
+    end
+
+    subgraph Engine ["Quantitative Analytics Core (analysis.py)"]
+        Ingest[Data Ingestion & Schema Enforcer]
+        SARIMAX[Auto Grid-Search AIC Optimizer]
+        Backtest[RMSE / MAPE Backtester]
+        Ljung[Ljung-Box Residual Diagnostic]
+        Matrix[Cohort Retention & CLV Engine]
+        Clustering[RFM Quantile Persona Engine]
+    end
+
+    Frontend <-->|REST / JSON| Backend
+    Backend <--> Engine
 ```
 
 ---
@@ -77,63 +93,61 @@ flowchart TD
 
 ---
 
-## 📊 Analytical Visualizations
-
-### 1. SARIMAX Time-Series Sales Forecast & 95% Confidence Bounds
-![SARIMAX Sales Forecast](images/sarimax_forecast.png)
-
-### 2. Cohort Retention Survival Heatmap
-![Cohort Retention Heatmap](images/cohort_retention.png)
-
----
-
 ## 🚀 Quickstart & Setup
 
-### Run via CLI Dashboard (`uv` - Recommended)
-If you have `uv` installed, execute the Streamlit dashboard inside an isolated environment instantly:
+### Launch FastAPI Server
 ```bash
 cd project-1-sales-dashboard
-# Launch interactive Streamlit dashboard
-uv run --with-requirements requirements.txt streamlit run app.py
-```
 
-### Run via Standard Python Environment
-```bash
+# Install requirements
 pip install -r requirements.txt
-streamlit run app.py
+
+# Run the high-performance FastAPI server
+python server.py --host 0.0.0.0 --port 8001
 ```
+Open **`http://localhost:8001`** in your browser.
 
 ### Docker Container Deployment
 ```bash
 # Build production Docker image
 docker build -t enterprise-sales-analytics .
 
-# Run container on port 8501
-docker run -p 8501:8501 enterprise-sales-analytics
+# Run container on port 8001
+docker run -p 8001:8001 enterprise-sales-analytics
 ```
 
 ---
 
 ## 🧪 Test Suite & Validation
 
-Verify the codebase syntax and logic with 100% test coverage:
+Verify the codebase syntax and logic with 100% automated test coverage:
 ```bash
-# Run tests with uv
-uv run --with-requirements requirements.txt pytest tests/ -v
+pytest tests/ -v
 ```
 Output:
 ```bash
 ============================= test session starts ==============================
-collected 8 items
+collected 19 items
 
-tests/test_analysis.py::test_data_generation PASSED                      [ 12%]
-tests/test_analysis.py::test_kpi_calculations PASSED                     [ 25%]
-tests/test_analysis.py::test_cohort_matrix PASSED                        [ 37%]
-tests/test_analysis.py::test_customer_ltv PASSED                         [ 50%]
-tests/test_analysis.py::test_rfm_segmentation PASSED                     [ 62%]
-tests/test_analysis.py::test_sarimax_forecast PASSED                     [ 75%]
-tests/test_analysis.py::test_empty_dataframe_handling PASSED             [ 87%]
-tests/test_analysis.py::test_predictive_ltv_distinctness PASSED          [100%]
+tests/test_analysis.py::test_data_generation PASSED                      [  5%]
+tests/test_analysis.py::test_kpi_calculations PASSED                     [ 10%]
+tests/test_analysis.py::test_cohort_matrix PASSED                        [ 15%]
+tests/test_analysis.py::test_customer_ltv PASSED                         [ 21%]
+tests/test_analysis.py::test_rfm_segmentation PASSED                     [ 26%]
+tests/test_analysis.py::test_sarimax_forecast PASSED                     [ 31%]
+tests/test_analysis.py::test_empty_dataframe_handling PASSED             [ 36%]
+tests/test_analysis.py::test_predictive_ltv_distinctness PASSED          [ 42%]
+tests/test_server.py::test_metadata_endpoint PASSED                      [ 47%]
+tests/test_server.py::test_kpis_endpoint PASSED                          [ 52%]
+tests/test_server.py::test_kpis_category_filter PASSED                   [ 57%]
+tests/test_server.py::test_forecast_endpoint PASSED                      [ 63%]
+tests/test_server.py::test_forecast_invalid_horizon PASSED               [ 68%]
+tests/test_server.py::test_cohort_ltv_endpoint PASSED                    [ 73%]
+tests/test_server.py::test_rfm_endpoint PASSED                           [ 78%]
+tests/test_scenario_simulation_endpoint PASSED                          [ 84%]
+tests/test_transactions_ledger_pagination PASSED                        [ 89%]
+tests/test_server.py::test_export_csv_endpoint PASSED                    [ 94%]
+tests/test_server.py::test_serve_index PASSED                            [100%]
 
-============================== 8 passed in 1.60s ===============================
+============================== 19 passed in 4.33s ==============================
 ```

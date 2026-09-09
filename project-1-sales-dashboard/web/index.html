@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise Sales Intelligence & SARIMAX Forecasting</title>
+  
+  <!-- Modern Inter & JetBrains Mono Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Plotly.js for Smooth Clientside Charts -->
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+  
+  <!-- Core Design System Stylesheet -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- ===================================================================== -->
+  <!-- TOP APPLICATION NAVBAR & TELEMETRY HUD                                -->
+  <!-- ===================================================================== -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+            <polyline points="16 7 22 7 22 13"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Sales Intelligence Console</h1>
+          <span class="brand-subtitle">Automated SARIMAX Projections & Cohort LTV Engine</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="status-pill" id="system-status-pill">
+          <span class="status-dot"></span>
+          <span id="system-status-text">Connecting to Analytics Core...</span>
+        </div>
+        <a href="https://github.com/jimmyjdejesus-cmyk/project-1-sales-dashboard" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="View Source on GitHub">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>Repository</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- MAIN APP CONTAINER                                                    -->
+  <!-- ===================================================================== -->
+  <div class="app-main-layout">
+
+    <!-- =================================================================== -->
+    <!-- ANALYTICAL FILTER & PARAMETER DRAWER                                -->
+    <!-- =================================================================== -->
+    <aside class="filters-sidebar">
+      <div class="filters-header">
+        <div class="filter-title-group">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+          </svg>
+          <h2>Analytical Filters</h2>
+        </div>
+        <button id="btn-reset-filters" class="btn-text" title="Reset all filters to default">Reset</button>
+      </div>
+
+      <!-- Quick Temporal Presets -->
+      <div class="filter-section">
+        <label class="filter-label">Temporal Window</label>
+        <div class="preset-buttons-grid">
+          <button class="preset-btn active" data-preset="all">All Time</button>
+          <button class="preset-btn" data-preset="1y">1 Year</button>
+          <button class="preset-btn" data-preset="6m">6 Months</button>
+          <button class="preset-btn" data-preset="90d">90 Days</button>
+        </div>
+        <div class="date-inputs-row">
+          <div class="input-subgroup">
+            <span class="input-label-sm">From</span>
+            <input type="date" id="filter-start-date" class="form-input">
+          </div>
+          <div class="input-subgroup">
+            <span class="input-label-sm">To</span>
+            <input type="date" id="filter-end-date" class="form-input">
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="filter-section">
+        <div class="filter-label-row">
+          <label class="filter-label">Product Categories</label>
+          <button id="btn-toggle-categories" class="btn-text-xs">Deselect All</button>
+        </div>
+        <div id="categories-container" class="categories-checkbox-list">
+          <!-- Dynamically populated from /api/meta -->
+          <span class="text-muted">Loading categories...</span>
+        </div>
+      </div>
+
+      <!-- SARIMAX Forecast Horizon -->
+      <div class="filter-section">
+        <div class="filter-label-row">
+          <label class="filter-label">Forecast Horizon</label>
+          <span class="slider-badge" id="horizon-badge">8 Weeks</span>
+        </div>
+        <input type="range" id="filter-horizon" min="4" max="20" value="8" step="1" class="form-range">
+        <div class="range-labels">
+          <span>4 wks</span>
+          <span>12 wks</span>
+          <span>20 wks</span>
+        </div>
+      </div>
+
+      <!-- Filter Trigger Button -->
+      <div class="filters-action-footer">
+        <button id="btn-apply-filters" class="btn btn-primary btn-block">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 2v6h-6"></path>
+            <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+            <path d="M3 22v-6h6"></path>
+            <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+          </svg>
+          <span>Update Analytics</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- =================================================================== -->
+    <!-- CENTRAL ANALYTICS WORKSPACE                                         -->
+    <!-- =================================================================== -->
+    <main class="analytics-content">
+
+      <!-- Executive KPI Cards Banner -->
+      <section class="kpi-banner-grid">
+        <div class="kpi-card" id="kpi-revenue-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Gross Revenue</span>
+            <span class="kpi-badge positive" id="kpi-revenue-delta">+0.0% MoM</span>
+          </div>
+          <div class="kpi-value" id="kpi-revenue-val">$0.00</div>
+          <div class="kpi-footer">Cumulative filtered sales volume</div>
+        </div>
+
+        <div class="kpi-card" id="kpi-profit-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Gross Profit</span>
+            <span class="kpi-badge neutral" id="kpi-margin-delta">0.0% Margin</span>
+          </div>
+          <div class="kpi-value" id="kpi-profit-val">$0.00</div>
+          <div class="kpi-footer">Net profit post-cost & discounts</div>
+        </div>
+
+        <div class="kpi-card" id="kpi-orders-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Order Volume</span>
+            <span class="kpi-badge positive" id="kpi-orders-delta">+0.0% MoM</span>
+          </div>
+          <div class="kpi-value" id="kpi-orders-val">0</div>
+          <div class="kpi-footer">Total completed transactions</div>
+        </div>
+
+        <div class="kpi-card" id="kpi-customers-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Active Customers</span>
+          </div>
+          <div class="kpi-value" id="kpi-customers-val">0</div>
+          <div class="kpi-footer">Unique purchasing accounts</div>
+        </div>
+
+        <div class="kpi-card" id="kpi-aov-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Average Order Value</span>
+          </div>
+          <div class="kpi-value" id="kpi-aov-val">$0.00</div>
+          <div class="kpi-footer">Revenue per transaction</div>
+        </div>
+      </section>
+
+      <!-- Multi-Tab Intelligence Navigation -->
+      <nav class="tabs-nav">
+        <button class="tab-btn active" data-tab="forecast">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span>SARIMAX Forecasting</span>
+        </button>
+
+        <button class="tab-btn" data-tab="cohort">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="9" y1="21" x2="9" y2="9"></line>
+          </svg>
+          <span>Cohort Retention & LTV</span>
+        </button>
+
+        <button class="tab-btn" data-tab="rfm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>RFM Segmentation</span>
+        </button>
+
+        <button class="tab-btn" data-tab="scenario">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+          </svg>
+          <span>What-If Simulator</span>
+        </button>
+
+        <button class="tab-btn" data-tab="ledger">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          <span>Transaction Ledger</span>
+        </button>
+      </nav>
+
+      <!-- ================================================================= -->
+      <!-- TAB 1: SARIMAX FORECASTING & STATISTICAL DIAGNOSTICS              -->
+      <!-- ================================================================= -->
+      <section class="tab-pane active" id="pane-forecast">
+        <div class="panel-card">
+          <div class="panel-header-row">
+            <div>
+              <h3 class="panel-title">Predictive Revenue Projections (SARIMAX Engine)</h3>
+              <p class="panel-subtitle">Automated AIC hyperparameter optimization with 95% confidence intervals and residual diagnostics.</p>
+            </div>
+            <div class="model-badge" id="forecast-model-badge">Model: SARIMAX(0,1,1)x(0,1,1,4)</div>
+          </div>
+
+          <!-- Diagnostic Metrics Strip -->
+          <div class="metrics-strip-grid">
+            <div class="metric-box">
+              <span class="metric-label">Akaike Criterion (AIC)</span>
+              <span class="metric-val" id="fc-metric-aic">0.0</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-label">Mean Absolute Error</span>
+              <span class="metric-val" id="fc-metric-mae">$0.00</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-label">Root Mean Sq Error (RMSE)</span>
+              <span class="metric-val" id="fc-metric-rmse">$0.00</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-label">Mean Absolute % Error (MAPE)</span>
+              <span class="metric-val" id="fc-metric-mape">0.0%</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-label">Residual Whiteness (p-val)</span>
+              <span class="metric-val" id="fc-metric-ljung">0.000</span>
+            </div>
+          </div>
+
+          <!-- Main Forecast Chart -->
+          <div class="chart-container" id="chart-forecast-container">
+            <div class="chart-loader" id="loader-forecast">
+              <div class="spinner"></div>
+              <span>Optimizing SARIMAX model parameters...</span>
+            </div>
+            <div id="chart-forecast" style="width: 100%; height: 460px;"></div>
+          </div>
+
+          <!-- Diagnostic Sub-Charts -->
+          <div class="sub-charts-grid">
+            <div class="sub-chart-card">
+              <h4 class="sub-chart-title">Model Residuals Distribution</h4>
+              <p class="sub-chart-desc">Normal distribution of residuals indicates that systematic error has been successfully captured.</p>
+              <div id="chart-residuals" style="width: 100%; height: 260px;"></div>
+            </div>
+            <div class="sub-chart-card">
+              <h4 class="sub-chart-title">Residual Autocorrelation Test</h4>
+              <p class="sub-chart-desc">Ljung-Box diagnostic checks for uncaptured serial correlation.</p>
+              <div class="diagnostic-alert-box" id="diagnostic-status-box">
+                <span class="alert-icon">✓</span>
+                <div class="alert-content">
+                  <strong id="diag-title">White Noise Residuals Confirmed</strong>
+                  <p id="diag-desc">Residuals pass the white noise test with p &gt; 0.05, validating temporal independence.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- TAB 2: COHORT RETENTION & CUSTOMER LTV                            -->
+      <!-- ================================================================= -->
+      <section class="tab-pane" id="pane-cohort">
+        <div class="panel-card">
+          <div class="panel-header-row">
+            <div>
+              <h3 class="panel-title">Customer Cohort Survival & Lifetime Value (LTV)</h3>
+              <p class="panel-subtitle">Longitudinal cohort retention tracking and predictive lifetime value calculations.</p>
+            </div>
+          </div>
+
+          <!-- LTV Summary Cards -->
+          <div class="ltv-cards-grid">
+            <div class="ltv-card">
+              <span class="ltv-label">Historical LTV</span>
+              <span class="ltv-val" id="ltv-historical">$0.00</span>
+              <span class="ltv-hint">Realized revenue per customer</span>
+            </div>
+            <div class="ltv-card highlight">
+              <span class="ltv-label">Predictive LTV (Projected)</span>
+              <span class="ltv-val" id="ltv-predictive">$0.00</span>
+              <span class="ltv-hint">Forward-looking discounted margin</span>
+            </div>
+            <div class="ltv-card">
+              <span class="ltv-label">Avg Customer Lifespan</span>
+              <span class="ltv-val" id="ltv-lifespan">0.0 Years</span>
+              <span class="ltv-hint">Mean active purchasing window</span>
+            </div>
+            <div class="ltv-card">
+              <span class="ltv-label">Avg Gross Margin</span>
+              <span class="ltv-val" id="ltv-margin">0.0%</span>
+              <span class="ltv-hint">Net product profitability</span>
+            </div>
+          </div>
+
+          <!-- Cohort Heatmap -->
+          <div class="cohort-heatmap-wrapper">
+            <h4 class="sub-chart-title">Monthly Cohort Retention Heatmap (%)</h4>
+            <div class="chart-container" id="chart-cohort-container">
+              <div class="chart-loader" id="loader-cohort">
+                <div class="spinner"></div>
+                <span>Computing cohort matrix...</span>
+              </div>
+              <div id="chart-cohort" style="width: 100%; height: 480px;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- TAB 3: RFM BEHAVIORAL SEGMENTATION                                -->
+      <!-- ================================================================= -->
+      <section class="tab-pane" id="pane-rfm">
+        <div class="panel-card">
+          <div class="panel-header-row">
+            <div>
+              <h3 class="panel-title">Customer Intelligence: RFM Behavioral Segmentation</h3>
+              <p class="panel-subtitle">Quantile scoring across Recency, Frequency, and Monetary dimensions to map marketing personas.</p>
+            </div>
+          </div>
+
+          <div class="rfm-top-grid">
+            <!-- Persona Distribution Bar Chart -->
+            <div class="sub-chart-card">
+              <h4 class="sub-chart-title">Customer Distribution by Persona</h4>
+              <div id="chart-rfm-bar" style="width: 100%; height: 320px;"></div>
+            </div>
+
+            <!-- Marketing Strategy Playbook -->
+            <div class="playbook-card">
+              <h4 class="sub-chart-title">Strategic Action Playbook</h4>
+              <div class="playbook-list" id="playbook-list-container">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- RFM Scatter Plot -->
+          <div class="rfm-scatter-wrapper">
+            <h4 class="sub-chart-title">Monetary Spend vs Order Frequency by Customer Persona</h4>
+            <div id="chart-rfm-scatter" style="width: 100%; height: 420px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- TAB 4: WHAT-IF SCENARIO SIMULATOR                                 -->
+      <!-- ================================================================= -->
+      <section class="tab-pane" id="pane-scenario">
+        <div class="panel-card">
+          <div class="panel-header-row">
+            <div>
+              <h3 class="panel-title">Executive What-If Sensitivity Simulator</h3>
+              <p class="panel-subtitle">Interactive sensitivity modeling for conversion rate lifts, strategic price adjustments, and customer retention boosts.</p>
+            </div>
+          </div>
+
+          <div class="simulator-layout">
+            <!-- Controls Column -->
+            <div class="sim-controls-panel">
+              <div class="sim-slider-group">
+                <div class="filter-label-row">
+                  <label class="filter-label">Conversion Rate Lift</label>
+                  <span class="slider-badge" id="sim-conv-val">+10%</span>
+                </div>
+                <input type="range" id="sim-conv-slider" min="-20" max="50" value="10" step="5" class="form-range">
+                <span class="sim-hint">Impact of UX optimizations and funnel improvements</span>
+              </div>
+
+              <div class="sim-slider-group">
+                <div class="filter-label-row">
+                  <label class="filter-label">Price Adjustment</label>
+                  <span class="slider-badge" id="sim-price-val">+5%</span>
+                </div>
+                <input type="range" id="sim-price-slider" min="-15" max="30" value="5" step="5" class="form-range">
+                <span class="sim-hint">Net price inflation or premium catalog rebalancing</span>
+              </div>
+
+              <div class="sim-slider-group">
+                <div class="filter-label-row">
+                  <label class="filter-label">Retention Improvement</label>
+                  <span class="slider-badge" id="sim-ret-val">+5%</span>
+                </div>
+                <input type="range" id="sim-ret-slider" min="0" max="25" value="5" step="1" class="form-range">
+                <span class="sim-hint">Reduction in churn via loyalty programs and automated triggers</span>
+              </div>
+            </div>
+
+            <!-- Results Column -->
+            <div class="sim-results-panel">
+              <div class="sim-results-cards-grid">
+                <div class="sim-card">
+                  <span class="sim-card-label">Base Period Revenue</span>
+                  <span class="sim-card-val" id="sim-base-rev">$0.00</span>
+                  <span class="sim-card-sub">Current filtered baseline</span>
+                </div>
+
+                <div class="sim-card highlight-sim">
+                  <span class="sim-card-label">Simulated Projected Revenue</span>
+                  <span class="sim-card-val" id="sim-proj-rev">$0.00</span>
+                  <span class="sim-card-sub">Post-intervention estimate</span>
+                </div>
+
+                <div class="sim-card">
+                  <span class="sim-card-label">Projected Revenue Uplift</span>
+                  <div class="uplift-val-row">
+                    <span class="sim-card-val green" id="sim-uplift-dollar">+$0.00</span>
+                    <span class="kpi-badge positive" id="sim-uplift-pct">+0.0%</span>
+                  </div>
+                  <span class="sim-card-sub">Net incremental gross dollar gain</span>
+                </div>
+              </div>
+
+              <div class="sim-narrative-box">
+                <h4>Modeling Formulation</h4>
+                <p>Simulated revenue is modeled as a multiplicative joint sensitivity function: <code>R_sim = R_base × (1 + Δ_conv) × (1 + Δ_price) × (1 + Δ_ret)</code>. This reflects the compounding effect of multi-channel executive growth interventions across the retail lifecycle.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- TAB 5: TRANSACTION LEDGER & EXPORT                                -->
+      <!-- ================================================================= -->
+      <section class="tab-pane" id="pane-ledger">
+        <div class="panel-card">
+          <div class="panel-header-row">
+            <div>
+              <h3 class="panel-title">Transaction Ledger & Data Export</h3>
+              <p class="panel-subtitle">Inspect underlying transactional records, search specific orders, and export filtered datasets.</p>
+            </div>
+            <div class="ledger-actions-row">
+              <input type="text" id="ledger-search-input" placeholder="Search Order or Customer ID..." class="form-input form-input-sm">
+              <button id="btn-export-csv" class="btn btn-secondary btn-sm">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Export CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Table Wrapper -->
+          <div class="table-responsive">
+            <table class="data-table" id="transactions-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Date</th>
+                  <th>Customer ID</th>
+                  <th>Category</th>
+                  <th>Qty</th>
+                  <th>Unit Price</th>
+                  <th>Discount</th>
+                  <th>Total Sales</th>
+                  <th>Gross Profit</th>
+                </tr>
+              </thead>
+              <tbody id="transactions-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Bar -->
+          <div class="pagination-bar">
+            <span class="pagination-info" id="pagination-info">Showing 0-0 of 0 records</span>
+            <div class="pagination-controls">
+              <button id="btn-page-prev" class="btn btn-secondary btn-sm" disabled>Previous</button>
+              <span class="page-current" id="page-current-indicator">Page 1 of 1</span>
+              <button id="btn-page-next" class="btn btn-secondary btn-sm" disabled>Next</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Main Application Logic Script -->
+  <script src="/static/app.js"></script>
+</body>
+</html>

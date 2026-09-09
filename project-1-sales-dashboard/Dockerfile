@@ -20,14 +20,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy source code
 COPY . .
 
-# Expose Streamlit default port
-EXPOSE 8501
+# Expose FastAPI application port
+EXPOSE 8001
 
-# Run Healthcheck
-HEALTHCHECK CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health')" || exit 1
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8001/api/meta')" || exit 1
 
 RUN useradd -m -r appuser && chown -R appuser:appuser /app
 USER appuser
 
-# Launch Application
-ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# Launch FastAPI High-Performance Analytics Server
+ENTRYPOINT ["python", "server.py", "--host", "0.0.0.0", "--port", "8001"]
